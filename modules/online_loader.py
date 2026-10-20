@@ -45,7 +45,7 @@ def import_oxford_5000(translate=False):
         vi_meaning = ""
         if translate:
             vi_meaning = translate_to_vietnamese(word)
-            time.sleep(0.2) # Tránh bị block API
+            time.sleep(0.2)
 
         row = {
             'word': word,
@@ -75,7 +75,6 @@ def import_oxford_5000(translate=False):
     return added_count
 
 def translate_missing_words(limit=50):
-    """Tìm các từ chưa có nghĩa và tiến hành dịch (giới hạn số lượng để tránh timeout)"""
     rows = store.read_sheet('Vocabulary')
     missing = [r for r in rows if r.get('vi_meaning') == 'Chưa có nghĩa tiếng Việt']
     
@@ -91,6 +90,6 @@ def translate_missing_words(limit=50):
         if vi_meaning:
             store.update_row('Vocabulary', row.get('id'), {'vi_meaning': vi_meaning})
             translated_count += 1
-        time.sleep(0.3) # Delay để không bị đánh dấu là spam
+        time.sleep(0.3)
         
     return translated_count, len(missing)
