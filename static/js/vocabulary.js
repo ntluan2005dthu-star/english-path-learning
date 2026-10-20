@@ -1,105 +1,315 @@
-async function fetchJSON(url, options = {}) {
+(async function () {
+  const root = document.getElementById("vocabulary");
+  if (!root) return;
+
+  const state = {
+    search: "",
+    topic: "",
+    difficulty: "",
+    status: "",
+    favorite: "",
+    page: 1,
+    perPage: 12,
+  };
+
+  root.innerHTML = `
+        <div class="card mb-16">
+            <div class="toolbar">
+                <input type="search" id="fSearch" placeholder="Tìm tiếng Anh hoặc tiếng Việt...">
+                <select id="fTopic"><option value="">Tất cả chủ đề</option></select>
+                <select id="fDifficulty"><option value="">Mọi độ khó</option></select>
+                <select id="fStatus">
+                    <option value="">Mọi trạng thái</option>
+                    <option value="new">Mới</option>
+                    <option value="learning">Đang học</option>
+                    <option value="reviewing">Đang ôn</option>
+                    <option value="mastered">Đã thành thạo</option>
+                </select>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;">
+                    <input type="checkbox" id="fFavorite" style="width:auto;"> Chỉ yêu thích
+                </label>
+                <button class="btn small ghost" id="btnReset">Xóa lọc</button>
+                
+                <div style="margin-left:auto; display:flex; gap:8px;">
+                    <button class="btn small" id="btnTranslate" style="background:#f59e0b;">🇻🇳 Dịch từ thiếu</button>
+                    <button class="btn small" id="btnImportOxford" style="background:#8b5cf6;">📥 Nhập 5000 từ Oxford</button>
+                </div>
+            </div>
+            <div class="subtle" id="resultInfo">—</div>
+        </div>
+        <div id="vocabList" class="grid grid-3"></div>
+        <div id="pager" class="toolbar mt-16" style="justify-content:center;"></div>
+    `;
+
+  const els = {
+    search: document.getElementById("fSearch"),
+    topic: document.getElementById("fTopic"),
+    difficulty: document.getElementById("fDifficulty"),
+    status: document.getElementById("fStatus"),
+    favorite: document.getElementById("fFavorite"),
+    reset: document.getElementById("btnReset"),
+    importBtn: document.getElementById("btnImportOxford"),
+    translateBtn: document.getElementById("btnTranslate"),
+    list: document.getElementById("vocabList"),
+    info: document.getElementById("resultInfo"),
+    pager: document.getElementById("pager"),
+  };
+
+  await load();
+
+  function buildQuery() {
+    const q = new URLSearchParams();
+    if (state.search) q.set("search", state.search);
+    if (state.topic) q.set("topic", state.topic);
+    if (state.difficulty) q.set("difficulty", state.difficulty);
+    if (state.status) q.set("status", state.status);
+    if (state.favorite) q.set("favorite", "1");
+    q.set("page", state.page);
+    q.set("per_page", state.perPage);
+    return q.toString();
+  }
+
+  async function load() {
+    let data;
     try {
-        const res = await fetch(url, options);
-        const ct = res.headers.get('content-type') || '';
-        if (!ct.includes('application/json')) {
-            throw new Error('Phản hồi không phải JSON (HTTP ' + res.status + ')');
-        }
-        const data = await res.json();
-        if (!res.ok) {
-            throw new Error(data.error || ('Lỗi HTTP ' + res.status));
-        }
-        return data;
-    } catch (err) {
-        toast(err.message || 'Lỗi kết nối', 'error');
-        throw err;
-    }
-}
-
-function toast(msg, type = '') {
-    const el = document.getElementById('toast');
-    if (!el) return;
-    el.textContent = msg;
-    el.className = 'toast show ' + type;
-    clearTimeout(el._t);
-    el._t = setTimeout(() => { el.className = 'toast'; }, 2600);
-}
-
-function toggleSidebar() {
-    const s = document.getElementById('sidebar');
-    if (s) s.classList.toggle('open');
-}
-
-function escapeHtml(s) {
-    return String(s == null ? '' : s)
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
-
-function fmtDate(s) {
-    if (!s) return '—';
-    return String(s);
-}
-
-function pct(n, total) {
-    if (!total) return 0;
-    return Math.round((n / total) * 100);
-}
-
-const Speech = {
-    supported: typeof window !== 'undefined' && 'speechSynthesis' in window,
-    speak(text, rate = 0.95) {
-        if (!this.supported) {
-            toast('Trình duyệt không hỗ trợ phát âm (Web Speech API).', 'error');
-            return false;
-        }
-        try {
-            window.speechSynthesis.cancel();
-            const u = new SpeechSynthesisUtterance(String(text || ''));
-            u.lang = 'en-US';
-            u.rate = rate;
-            const voices = window.speechSynthesis.getVoices();
-            const en = voices.find(v => /en[-_]/i.test(v.lang));
-            if (en) u.voice = en;
-            window.speechSynthesis.speak(u);
-            return true;
-        } catch (e) {
-            toast('Không thể phát âm: ' + e.message, 'error');
-            return false;
-        }
-    },
-    stop() {
-        if (this.supported) window.speechSynthesis.cancel();
-    }
-};
-
-(function protectBrand() {
-    const p1 = "wqkgMjAwNSBOZ3V5";
-    const p2 = "4buFbiBUaMOgbmgg";
-    const p3 = "THXDom4gfCBFbmds";
-    const p4 = "aXNoIFBhdGguIEFs";
-    const p5 = "bCByaWdodHMgcmVz";
-    const p6 = "ZXJ2ZWQu";
-    
-    try {
-        const base64Str = p1 + p2 + p3 + p4 + p5 + p6;
-        const binString = atob(base64Str);
-        const bytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
-        const decodedText = new TextDecoder().decode(bytes);
-
-        const watermark = document.createElement('div');
-        watermark.id = "sys-protect-9988";
-        watermark.style.cssText = "position:fixed;bottom:10px;right:15px;background:rgba(0,0,0,0.8);color:#fff;padding:5px 12px;border-radius:20px;font-size:11px;z-index:99999;pointer-events:none;opacity:0.7;font-family:monospace;box-shadow:0 2px 10px rgba(0,0,0,0.3);";
-        watermark.textContent = decodedText;
-        document.body.appendChild(watermark);
-
-        setInterval(function() {
-            if (!document.getElementById("sys-protect-9988")) {
-                document.body.innerHTML = "<div style='color:red; text-align:center; margin-top:50px; font-size:24px; font-weight:bold;'>HỆ THỐNG PHÁT HIỆN HÀNH VI XÓA BẢN QUYỀN TRÁI PHÉP!<br>Vui lòng tải lại trang.</div>";
-                setTimeout(() => window.location.reload(), 2000);
-            }
-        }, 1000);
+      data = await fetchJSON("/api/vocabulary?" + buildQuery());
     } catch (e) {
-        console.error("Lỗi bảo vệ bản quyền", e);
+      els.list.innerHTML = `<div class="empty">Lỗi tải từ vựng. ${escapeHtml(e.message)}</div>`;
+      return;
     }
+    fillFilters(data);
+    render(data);
+  }
+
+  function fillFilters(data) {
+    if (els.topic.options.length <= 1 && data.topics) {
+      data.topics.forEach((t) => {
+        const o = document.createElement("option");
+        o.value = t;
+        o.textContent = t;
+        els.topic.appendChild(o);
+      });
+    }
+    if (els.difficulty.options.length <= 1 && data.difficulties) {
+      data.difficulties.forEach((t) => {
+        const o = document.createElement("option");
+        o.value = t;
+        o.textContent = t;
+        els.difficulty.appendChild(o);
+      });
+    }
+  }
+
+  function render(data) {
+    els.info.textContent = `Tìm thấy ${data.total} từ · Trang ${data.page}/${data.pages}`;
+    if (!data.items || !data.items.length) {
+      els.list.innerHTML = `<div class="empty">Không có từ nào phù hợp.</div>`;
+      els.pager.innerHTML = "";
+      return;
+    }
+    els.list.innerHTML = data.items.map(renderCard).join("");
+    bindCards();
+    renderPager(data);
+  }
+
+  function renderCard(v) {
+    const statusLabel =
+      {
+        new: '<span class="badge neutral">Mới</span>',
+        learning: '<span class="badge">Đang học</span>',
+        reviewing: '<span class="badge warning">Đang ôn</span>',
+        mastered: '<span class="badge success">Thành thạo</span>',
+      }[v.status] || "";
+
+    return `
+            <div class="card vocab-card" data-id="${v.id}">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;">
+                    <div>
+                        <div class="vocab-word">${escapeHtml(v.word)}</div>
+                        <div class="vocab-meta">
+                            <span>${escapeHtml(v.pos || "")}</span>
+                            <span>·</span>
+                            <span>${escapeHtml(v.ipa || "Chưa xác minh")}</span>
+                            <span>·</span>
+                            <span>CEFR: ${escapeHtml(v.cefr || "?")}</span>
+                        </div>
+                    </div>
+                    ${statusLabel}
+                </div>
+                <div class="vocab-meaning" style="${v.vi_meaning === "Chưa có nghĩa tiếng Việt" ? "color:red;" : ""}">
+                    ${escapeHtml(v.vi_meaning || "")}
+                </div>
+                ${v.en_definition ? `<div class="subtle">${escapeHtml(v.en_definition)}</div>` : ""}
+                ${
+                  v.example_en
+                    ? `<div class="vocab-example">
+                    <div>${escapeHtml(v.example_en)}</div>
+                </div>`
+                    : ""
+                }
+                <div class="vocab-actions">
+                    <button class="btn small ghost" data-speak="${escapeHtml(v.word)}">🔊</button>
+                    <button class="btn small ghost" data-fav="${v.id}">${v.favorite ? "💖" : "🤍"}</button>
+                    <select class="status-sel" data-status="${v.id}" style="width:auto;">
+                        <option value="new" ${v.status === "new" ? "selected" : ""}>Mới</option>
+                        <option value="learning" ${v.status === "learning" ? "selected" : ""}>Đang học</option>
+                        <option value="reviewing" ${v.status === "reviewing" ? "selected" : ""}>Đang ôn</option>
+                        <option value="mastered" ${v.status === "mastered" ? "selected" : ""}>Thành thạo</option>
+                    </select>
+                </div>
+            </div>
+        `;
+  }
+
+  function bindCards() {
+    els.list.querySelectorAll("[data-speak]").forEach((b) => {
+      b.addEventListener("click", () => window.Speech.speak(b.dataset.speak));
+    });
+    els.list.querySelectorAll("[data-fav]").forEach((b) => {
+      b.addEventListener("click", async () => {
+        try {
+          const res = await fetchJSON(
+            "/api/vocabulary/" + b.dataset.fav + "/favorite",
+            { method: "POST" },
+          );
+          b.textContent = res.favorite ? "💖" : "🤍";
+        } catch (e) {
+          /* toast */
+        }
+      });
+    });
+    els.list.querySelectorAll("[data-status]").forEach((sel) => {
+      sel.addEventListener("change", async () => {
+        try {
+          await fetchJSON("/api/vocabulary/" + sel.dataset.status + "/status", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: sel.value }),
+          });
+        } catch (e) {
+          /* toast */
+        }
+      });
+    });
+  }
+
+  function renderPager(data) {
+    if (data.pages <= 1) {
+      els.pager.innerHTML = "";
+      return;
+    }
+    const prev =
+      data.page > 1
+        ? `<button class="btn small ghost" data-page="${data.page - 1}">← Trước</button>`
+        : "";
+    const next =
+      data.page < data.pages
+        ? `<button class="btn small ghost" data-page="${data.page + 1}">Sau →</button>`
+        : "";
+    els.pager.innerHTML = `${prev}<span class="subtle">Trang ${data.page}/${data.pages}</span>${next}`;
+    els.pager.querySelectorAll("[data-page]").forEach((b) => {
+      b.addEventListener("click", () => {
+        state.page = Number(b.dataset.page);
+        load();
+      });
+    });
+  }
+
+  let searchTimer;
+  els.search.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      state.search = els.search.value.trim();
+      state.page = 1;
+      load();
+    }, 300);
+  });
+  els.topic.addEventListener("change", () => {
+    state.topic = els.topic.value;
+    state.page = 1;
+    load();
+  });
+  els.difficulty.addEventListener("change", () => {
+    state.difficulty = els.difficulty.value;
+    state.page = 1;
+    load();
+  });
+  els.status.addEventListener("change", () => {
+    state.status = els.status.value;
+    state.page = 1;
+    load();
+  });
+  els.favorite.addEventListener("change", () => {
+    state.favorite = els.favorite.checked;
+    state.page = 1;
+    load();
+  });
+  els.reset.addEventListener("click", () => {
+    state.search = "";
+    state.topic = "";
+    state.difficulty = "";
+    state.status = "";
+    state.favorite = false;
+    state.page = 1;
+    els.search.value = "";
+    els.topic.value = "";
+    els.difficulty.value = "";
+    els.status.value = "";
+    els.favorite.checked = false;
+    load();
+  });
+
+  els.importBtn.addEventListener("click", async () => {
+    if (
+      !confirm(
+        "Hệ thống sẽ tải khoảng 5000 từ vựng Oxford (chưa có nghĩa tiếng Việt).\nTiếp tục?",
+      )
+    )
+      return;
+    const originalText = els.importBtn.innerHTML;
+    els.importBtn.disabled = true;
+    els.importBtn.innerHTML = "⏳ Đang tải...";
+    try {
+      const res = await fetchJSON("/api/vocabulary/import-oxford", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ translate: false }),
+      });
+      toast(res.message || "Nhập thành công!", "success");
+      await load();
+    } catch (e) {
+      toast(e.message, "error");
+    } finally {
+      els.importBtn.disabled = false;
+      els.importBtn.innerHTML = originalText;
+    }
+  });
+
+  els.translateBtn.addEventListener("click", async () => {
+    if (
+      !confirm(
+        "Hệ thống sẽ dùng API để dịch tự động các từ chưa có nghĩa tiếng Việt (mỗi lần 50 từ).\nQuá trình này có thể mất vài chục giây. Bạn có muốn tiếp tục?",
+      )
+    )
+      return;
+
+    const originalText = els.translateBtn.innerHTML;
+    els.translateBtn.disabled = true;
+    els.translateBtn.innerHTML = "⏳ Đang dịch...";
+
+    try {
+      const res = await fetchJSON("/api/vocabulary/translate-missing", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ limit: 50 }),
+      });
+      toast(res.message, "success");
+      await load();
+    } catch (e) {
+      toast(e.message, "error");
+    } finally {
+      els.translateBtn.disabled = false;
+      els.translateBtn.innerHTML = originalText;
+    }
+  });
 })();

@@ -1,4 +1,3 @@
-// ---------- Tiện ích chung ----------
 async function fetchJSON(url, options = {}) {
   try {
     const res = await fetch(url, options);
@@ -52,8 +51,7 @@ function pct(n, total) {
   return Math.round((n / total) * 100);
 }
 
-// ---------- Web Speech API ----------
-const Speech = {
+window.Speech = {
   supported: typeof window !== "undefined" && "speechSynthesis" in window,
   speak(text, rate = 0.95) {
     if (!this.supported) {
@@ -80,11 +78,7 @@ const Speech = {
   },
 };
 
-// ========================================================
-// HỆ THỐNG BẢO VỆ THƯƠNG HIỆU (Anti-Tamper Script)
-// ========================================================
 (function protectBrand() {
-  // Chuỗi Base64 của "© 2005 Nguyễn Thành Luân | English Path. All rights reserved."
   const p1 = "wqkgMjAwNSBOZ3V5";
   const p2 = "4buFbiBUaMOgbmgg";
   const p3 = "THXDom4gfCBFbmds";
@@ -105,7 +99,6 @@ const Speech = {
     watermark.textContent = decodedText;
     document.body.appendChild(watermark);
 
-    // Bẫy chống xóa
     setInterval(function () {
       if (!document.getElementById("sys-protect-9988")) {
         document.body.innerHTML =

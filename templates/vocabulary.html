@@ -1,11 +1,7 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <section id="vocabulary">
-    <p class="loading">Đang tải từ vựng...</p>
+  <p class="loading">Đang tải từ vựng...</p>
 </section>
-{% endblock %}
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/vocabulary.js') }}"></script>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/vocabulary.js') }}?v=2"></script>
 {% endblock %}
