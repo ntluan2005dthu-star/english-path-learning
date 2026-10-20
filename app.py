@@ -1,15 +1,13 @@
 # ============================================================
-# app.py — English Path backend (bản đã sửa)
+# app.py — English Path backend (Bản quyền: Nguyễn Thành Luân)
 # ============================================================
-# Thêm import ở đầu file
-from modules import online_loader
 import os
 from datetime import date, timedelta
 
 from flask import Flask, jsonify, render_template, request
 
 from modules import excel_store as store
-from modules import quiz_engine, srs
+from modules import quiz_engine, srs, watermark, online_loader
 
 app = Flask(__name__)
 app.json.ensure_ascii = False
@@ -89,7 +87,15 @@ NAV = [
 
 @app.context_processor
 def inject_nav():
-    return {'nav_items': NAV, 'current_path': request.path}
+    # Tự động kiểm tra xem file watermark có bị sửa không
+    watermark.verify_integrity()
+    
+    return {
+        'nav_items': NAV, 
+        'current_path': request.path,
+        # Truyền biến bản quyền ra cho mọi file HTML
+        'copyright_text': watermark.get_copyright_info()
+    }
 
 
 @app.route('/')
@@ -151,6 +157,7 @@ def mistakes():
 @app.route('/stats')
 def stats():
     return render_template('stats.html', page_key='stats', page_title='Thống kê học tập')
+
 
 @app.route('/docs')
 def docs():
@@ -223,17 +230,6 @@ def api_dashboard():
                        'vi_meaning': v.get('vi_meaning')} for v in due[:8]],
     })
 
-
-# Thêm route mới (đặt gần các route vocabulary)
-@app.post('/api/vocabulary/import-oxford')
-def api_import_oxford():
-    data = request.get_json(silent=True) or {}
-    translate = bool(data.get('translate'))
-    try:
-        count = online_loader.import_oxford_5000(translate=translate)
-        return jsonify({'ok': True, 'added': count, 'message': f'Đã thêm {count} từ mới.'})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 # ---------- Roadmap ----------
 @app.get('/api/roadmap')
@@ -371,6 +367,17 @@ def api_vocabulary():
             'next_review': v.get('next_review'),
         } for v in items]
     })
+
+
+@app.post('/api/vocabulary/import-oxford')
+def api_import_oxford():
+    data = request.get_json(silent=True) or {}
+    translate = bool(data.get('translate'))
+    try:
+        count = online_loader.import_oxford_5000(translate=translate)
+        return jsonify({'ok': True, 'added': count, 'message': f'Đã thêm {count} từ mới.'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @app.post('/api/vocabulary/<int:vid>/favorite')
