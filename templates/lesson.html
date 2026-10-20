@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="lesson" data-lesson-id="{{ lesson_id }}">
+    <p class="loading">Đang tải bài học...</p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/lesson.js') }}"></script>
+{% endblock %}

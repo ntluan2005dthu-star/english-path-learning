@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="daily">
+    <p class="loading">Đang chuẩn bị nhiệm vụ hôm nay...</p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/daily.js') }}"></script>
+{% endblock %}

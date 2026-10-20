@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="speaking"><p class="loading">Đang tải bài luyện nói...</p></section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/speaking.js') }}"></script>
+{% endblock %}

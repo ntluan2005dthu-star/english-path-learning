@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} — English Path</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <span class="brand-icon">🎓</span>
+                <span class="brand-name">English Path</span>
+            </div>
+            <nav class="nav">
+                {% for key, path, label, icon in nav_items %}
+                <a href="{{ path }}" class="nav-item {% if current_path == path %}active{% endif %}">
+                    <span class="nav-icon">{{ icon }}</span>
+                    <span class="nav-label">{{ label }}</span>
+                </a>
+                {% endfor %}
+            </nav>
+            <div class="sidebar-footer">Demo cục bộ · Excel</div>
+        </aside>
+        <div class="main">
+            <header class="topbar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title">{{ page_title }}</h1>
+            </header>
+            <main class="content" id="content">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

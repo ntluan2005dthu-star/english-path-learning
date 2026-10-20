@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="roadmap">
+    <p class="loading">Đang tải lộ trình...</p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/roadmap.js') }}"></script>
+{% endblock %}

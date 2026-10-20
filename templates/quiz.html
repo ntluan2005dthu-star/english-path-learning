@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="quiz">
+    <p class="loading">Đang tải trung tâm kiểm tra...</p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}
