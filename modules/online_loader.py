@@ -1,5 +1,6 @@
 # modules/online_loader.py
 import urllib.request
+import urllib.parse
 import json
 import time
 from modules import excel_store as store
@@ -8,16 +9,13 @@ OXFORD_URL = "https://raw.githubusercontent.com/winterdl/oxford-5000-vocabulary-
 DICT_API = "https://dict.minhqnd.com/api/v1/lookup"
 
 def fetch_oxford_data():
-    """Tải file JSON Oxford 5000 từ GitHub."""
     print("Đang tải dữ liệu Oxford 5000 từ internet...")
     req = urllib.request.Request(OXFORD_URL, headers={'User-Agent': 'Mozilla/5.0'})
     with urllib.request.urlopen(req, timeout=30) as response:
         data = json.loads(response.read().decode('utf-8'))
-    # Chuyển dict {"0": {...}, "1": {...}} thành list
     return [entry for key, entry in data.items()]
 
 def translate_to_vietnamese(word):
-    """Gọi API để lấy nghĩa tiếng Việt (có thể bị giới hạn)."""
     try:
         url = f"{DICT_API}?word={urllib.parse.quote(word)}&lang=en&def_lang=vi"
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -32,7 +30,6 @@ def translate_to_vietnamese(word):
     return ""
 
 def import_oxford_5000(translate=False):
-    """Nhập 5000 từ vào Excel (bỏ qua từ đã tồn tại)."""
     existing_rows = store.read_sheet('Vocabulary')
     existing_words = {str(r.get('word', '')).lower().strip() for r in existing_rows}
     
@@ -48,16 +45,15 @@ def import_oxford_5000(translate=False):
         vi_meaning = ""
         if translate:
             vi_meaning = translate_to_vietnamese(word)
-            time.sleep(0.3)  # Tránh gửi quá nhanh đến API
+            time.sleep(0.2) # Tránh bị block API
 
-        # Ánh xạ dữ liệu sang schema của sheet Vocabulary
         row = {
             'word': word,
             'ipa': entry.get("phon_br", "") or entry.get("phon_n_am", "") or "Chưa xác minh",
             'pos': entry.get("type", ""),
             'vi_meaning': vi_meaning or "Chưa có nghĩa tiếng Việt",
             'en_definition': entry.get("definition", ""),
-            'collocation': "", # Oxford JSON không có trường này
+            'collocation': "", 
             'example_en': entry.get("example", ""),
             'example_vi': "", 
             'topic': "Oxford 5000",
@@ -76,5 +72,25 @@ def import_oxford_5000(translate=False):
         existing_words.add(word.lower())
         added_count += 1
 
-    print(f"Hoàn tất: Đã thêm {added_count} từ mới.")
     return added_count
+
+def translate_missing_words(limit=50):
+    """Tìm các từ chưa có nghĩa và tiến hành dịch (giới hạn số lượng để tránh timeout)"""
+    rows = store.read_sheet('Vocabulary')
+    missing = [r for r in rows if r.get('vi_meaning') == 'Chưa có nghĩa tiếng Việt']
+    
+    if not missing:
+        return 0, 0
+        
+    target_words = missing[:limit]
+    translated_count = 0
+    
+    for row in target_words:
+        word = row.get('word')
+        vi_meaning = translate_to_vietnamese(word)
+        if vi_meaning:
+            store.update_row('Vocabulary', row.get('id'), {'vi_meaning': vi_meaning})
+            translated_count += 1
+        time.sleep(0.3) # Delay để không bị đánh dấu là spam
+        
+    return translated_count, len(missing)

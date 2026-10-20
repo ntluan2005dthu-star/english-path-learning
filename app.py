@@ -1,5 +1,5 @@
 # ============================================================
-# app.py — English Path backend (Bản quyền: Nguyễn Thành Luân)
+# app.py — English Path backend
 # ============================================================
 import os
 from datetime import date, timedelta
@@ -7,7 +7,7 @@ from datetime import date, timedelta
 from flask import Flask, jsonify, render_template, request
 
 from modules import excel_store as store
-from modules import quiz_engine, srs, watermark, online_loader
+from modules import quiz_engine, srs, online_loader
 
 app = Flask(__name__)
 app.json.ensure_ascii = False
@@ -87,15 +87,7 @@ NAV = [
 
 @app.context_processor
 def inject_nav():
-    # Tự động kiểm tra xem file watermark có bị sửa không
-    watermark.verify_integrity()
-    
-    return {
-        'nav_items': NAV, 
-        'current_path': request.path,
-        # Truyền biến bản quyền ra cho mọi file HTML
-        'copyright_text': watermark.get_copyright_info()
-    }
+    return {'nav_items': NAV, 'current_path': request.path}
 
 
 @app.route('/')
@@ -376,6 +368,24 @@ def api_import_oxford():
     try:
         count = online_loader.import_oxford_5000(translate=translate)
         return jsonify({'ok': True, 'added': count, 'message': f'Đã thêm {count} từ mới.'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.post('/api/vocabulary/translate-missing')
+def api_translate_missing():
+    data = request.get_json(silent=True) or {}
+    limit = to_int(data.get('limit'), 50)
+    try:
+        translated, remaining = online_loader.translate_missing_words(limit=limit)
+        if translated == 0 and remaining == 0:
+            return jsonify({'ok': True, 'message': 'Tất cả từ vựng đã có nghĩa tiếng Việt!'})
+        return jsonify({
+            'ok': True, 
+            'translated': translated, 
+            'remaining': remaining,
+            'message': f'Đã dịch {translated} từ. Còn {remaining} từ chưa dịch.'
+        })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

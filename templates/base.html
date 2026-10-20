@@ -1,70 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page_title }} — English Path</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
     <div class="app">
-      <aside class="sidebar" id="sidebar">
-        <div class="brand">
-          <span class="brand-icon">🎓</span>
-          <span class="brand-name">English Path</span>
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <span class="brand-icon">🎓</span>
+                <span class="brand-name">English Path</span>
+            </div>
+            <nav class="nav">
+                {% for key, path, label, icon in nav_items %}
+                <a href="{{ path }}" class="nav-item {% if current_path == path %}active{% endif %}">
+                    <span class="nav-icon">{{ icon }}</span>
+                    <span class="nav-label">{{ label }}</span>
+                </a>
+                {% endfor %}
+            </nav>
+            <div class="sidebar-footer">Demo cục bộ · Excel</div>
+        </aside>
+        <div class="main">
+            <header class="topbar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title">{{ page_title }}</h1>
+            </header>
+            <main class="content" id="content">
+                {% block content %}{% endblock %}
+            </main>
         </div>
-        <nav class="nav">
-          {% for key, path, label, icon in nav_items %}
-          <a
-            href="{{ path }}"
-            class="nav-item {% if current_path == path %}active{% endif %}"
-          >
-            <span class="nav-icon">{{ icon }}</span>
-            <span class="nav-label">{{ label }}</span>
-          </a>
-          {% endfor %}
-        </nav>
-        <div class="sidebar-footer">Demo cục bộ · Excel</div>
-      </aside>
-      <div class="main">
-        <header class="topbar">
-          <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-          <h1 class="page-title">{{ page_title }}</h1>
-        </header>
-        <main class="content" id="content">
-          {% block content %}{% endblock %}
-        </main>
-      </div>
     </div>
-
+    
     <div id="toast" class="toast"></div>
 
-    <!-- WATERMARK BẢN QUYỀN (Cố định ở góc dưới bên phải, chống xóa) -->
-    <div
-      id="copyright-watermark"
-      style="
-        position: fixed;
-        bottom: 10px;
-        right: 15px;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 11px;
-        z-index: 9999;
-        pointer-events: none;
-        opacity: 0.6;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        font-family: monospace;
-      "
-    >
-      {{ copyright_text }}
-    </div>
+    <!-- KHÔNG CÒN THẺ DIV BẢN QUYỀN TĨNH Ở ĐÂY (Đã chuyển sang JS) -->
 
     <script src="{{ url_for('static', filename='js/common.js') }}"></script>
     {% block scripts %}{% endblock %}
-  </body>
+</body>
 </html>

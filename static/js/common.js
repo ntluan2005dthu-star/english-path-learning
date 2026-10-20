@@ -75,4 +75,36 @@ const Speech = {
     }
 };
 
-// Gợi ý: gọi Speech.supported để hiển thị cảnh báo ở giao diện
+// ========================================================
+// HỆ THỐNG BẢO VỆ THƯƠNG HIỆU (Anti-Tamper Script)
+// Dãy ký tự dưới đây là Base64 của "© 2024 Nguyễn Thành Luân..."
+// Tuyệt đối không xóa, nếu không hệ thống sẽ tự hủy giao diện!
+// ========================================================
+(function protectBrand() {
+    // Chuỗi đã được mã hóa và cắt nhỏ để chống Ctrl+F
+    const p1 = "wqkgMjAyNCBOZ3V5";
+    const p2 = "4buFbiBUaMOgbmgg";
+    const p3 = "THXDom4gfCBFbmds";
+    const p4 = "aXNoIFBhdGguIEFs";
+    const p5 = "bCByaWdodHMgcmVzZXJ2ZWQu";
+    
+    // Giải mã Base64 thành văn bản gốc
+    const decodedText = atob(p1 + p2 + p3 + p4 + p5);
+    
+    // Tạo thẻ div chứa bản quyền bằng JS (Không hề có trong HTML)
+    const watermark = document.createElement('div');
+    watermark.id = "sys-protect-9988";
+    watermark.style.cssText = "position:fixed;bottom:10px;right:15px;background:rgba(0,0,0,0.8);color:#fff;padding:5px 12px;border-radius:20px;font-size:11px;z-index:99999;pointer-events:none;opacity:0.7;font-family:monospace;box-shadow:0 2px 10px rgba(0,0,0,0.3);";
+    watermark.textContent = decodedText;
+    
+    // Chèn vào web
+    document.body.appendChild(watermark);
+
+    // BẪY CHỐNG XÓA: Kiểm tra mỗi giây, nếu ai đó xóa thẻ div này, web sẽ tự báo lỗi
+    setInterval(function() {
+        if (!document.getElementById("sys-protect-9988")) {
+            document.body.innerHTML = "<div style='color:red; text-align:center; margin-top:50px; font-size:24px; font-weight:bold;'>HỆ THỐNG PHÁT HIỆN HÀNH VI XÓA BẢN QUYỀN TRÁI PHÉP!<br>Vui lòng tải lại trang.</div>";
+            setTimeout(() => window.location.reload(), 2000);
+        }
+    }, 1000);
+})();
