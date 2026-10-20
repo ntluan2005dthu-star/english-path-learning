@@ -3,395 +3,248 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tài liệu dự án — English Path</title>
+    <title>English Path - Tài liệu dự án</title>
     <style>
-      /* ================= GỘP TOÀN BỘ CSS VÀO ĐÂY ================= */
       :root {
-        --bg: #f5f7fb;
-        --card: #ffffff;
-        --text: #1f2937;
-        --muted: #6b7280;
         --primary: #2563eb;
         --primary-dark: #1e40af;
         --success: #10b981;
         --warning: #f59e0b;
         --danger: #ef4444;
+        --bg: #f8fafc;
+        --card-bg: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
         --border: #e5e7eb;
-        --radius: 12px;
-        --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
       }
+
       * {
         box-sizing: border-box;
-      }
-      html,
-      body {
         margin: 0;
         padding: 0;
       }
+
       body {
         font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Helvetica Neue", sans-serif;
-        background: var(--bg);
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        background-color: var(--bg);
         color: var(--text);
+        line-height: 1.6;
         font-size: 15px;
-        line-height: 1.55;
       }
+
       a {
         color: var(--primary);
         text-decoration: none;
       }
-      button {
-        font-family: inherit;
-        cursor: pointer;
+      a:hover {
+        text-decoration: underline;
       }
 
-      /* Layout */
-      .app {
-        display: flex;
-        min-height: 100vh;
-      }
-      .sidebar {
-        width: 240px;
-        background: #111827;
-        color: #e5e7eb;
-        padding: 20px 14px;
-        display: flex;
-        flex-direction: column;
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        overflow-y: auto;
-      }
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 8px 18px;
-        border-bottom: 1px solid #374151;
-        margin-bottom: 12px;
-      }
-      .brand-icon {
-        font-size: 22px;
-      }
-      .brand-name {
-        font-weight: 700;
-        font-size: 16px;
-        color: #fff;
-      }
-      .nav {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        flex: 1;
-      }
-      .nav-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #d1d5db;
-        padding: 9px 10px;
-        border-radius: 8px;
-        font-size: 14px;
-        transition: background 0.15s;
-      }
-      .nav-item:hover {
-        background: #1f2937;
-        color: #fff;
-      }
-      .nav-item.active {
-        background: var(--primary);
-        color: #fff;
-      }
-      .nav-icon {
-        font-size: 16px;
-        width: 20px;
-        text-align: center;
-      }
-      .sidebar-footer {
-        font-size: 11px;
-        color: #6b7280;
-        padding: 12px 8px 0;
-        border-top: 1px solid #374151;
-        margin-top: 12px;
-      }
-
-      .main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-      }
-      .topbar {
-        background: var(--card);
-        border-bottom: 1px solid var(--border);
-        padding: 12px 22px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        position: sticky;
-        top: 0;
-        z-index: 20;
-      }
-      .page-title {
-        font-size: 18px;
-        margin: 0;
-        font-weight: 600;
-      }
-      .content {
-        padding: 22px;
-        max-width: 1200px;
-        width: 100%;
-        margin: 0 auto;
-      }
-
-      /* Cards & grid */
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 18px;
-        box-shadow: var(--shadow);
-      }
-      .grid {
-        display: grid;
-        gap: 16px;
-      }
-      .grid-4 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-      .grid-3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .grid-2 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .section-title {
-        font-size: 17px;
-        font-weight: 600;
-        margin: 0 0 12px;
-      }
-      .subtle {
-        color: var(--muted);
-        font-size: 13px;
-      }
-      .mt-16 {
-        margin-top: 16px;
-      }
-      .mb-16 {
-        margin-bottom: 16px;
-      }
-      .progress {
-        background: #eef2ff;
-        height: 8px;
-        border-radius: 999px;
-        overflow: hidden;
-      }
-      .progress > span {
-        display: block;
-        height: 100%;
-        background: var(--primary);
-        border-radius: 999px;
-      }
-
-      /* Buttons */
-      .btn {
+      /* Nút bấm Github */
+      .btn-github {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        background: var(--primary);
-        color: #fff;
-        border: none;
-        padding: 9px 14px;
-        border-radius: 8px;
-        font-size: 14px;
-        transition: background 0.15s;
-      }
-      .btn:hover {
-        background: var(--primary-dark);
-      }
-      .btn.ghost {
-        background: transparent;
-        color: var(--primary);
-        border: 1px solid var(--primary);
-      }
-      .btn.ghost:hover {
-        background: #eef2ff;
-      }
-
-      /* Badges */
-      .badge {
-        display: inline-block;
-        padding: 2px 8px;
-        border-radius: 999px;
-        font-size: 11px;
-        font-weight: 600;
-        background: #eef2ff;
-        color: var(--primary);
-      }
-      .badge.success {
-        background: #d1fae5;
-        color: #065f46;
-      }
-      .badge.warning {
-        background: #fef3c7;
-        color: #92400e;
-      }
-      .badge.danger {
-        background: #fee2e2;
-        color: #991b1b;
-      }
-      .badge.neutral {
-        background: #f3f4f6;
-        color: var(--muted);
-      }
-
-      /* ================= CSS RIÊNG CHO TRANG DOCS ================= */
-      .docs {
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-      .docs-hero {
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-        color: #fff;
-        border-radius: var(--radius);
-        padding: 32px 24px;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .docs-hero-icon {
-        font-size: 44px;
-      }
-      .docs-hero h1 {
-        margin: 8px 0 4px;
-        font-size: 28px;
-        color: #fff;
-      }
-      .docs-hero-tag {
-        margin: 0 0 14px;
-        opacity: 0.92;
-        font-size: 15px;
-      }
-      .docs-hero-badges {
-        display: flex;
         gap: 8px;
-        justify-content: center;
-        flex-wrap: wrap;
+        background-color: #24292f;
+        color: #fff !important;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        text-decoration: none !important;
+        transition: background-color 0.2s;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       }
-      .docs-hero-badges .badge {
-        background: rgba(255, 255, 255, 0.18);
-        color: #fff;
-      }
-      .docs-hero-badges .badge.success {
-        background: #059669;
-        color: #fff;
-      }
-      .docs-hero-badges .badge.warning {
-        background: #d97706;
-        color: #fff;
-      }
-      .docs-hero-badges .badge.neutral {
-        background: rgba(255, 255, 255, 0.18);
-        color: #fff;
+      .btn-github:hover {
+        background-color: #000;
       }
 
-      .docs-toc {
-        position: sticky;
-        top: 60px;
-        z-index: 5;
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-        background: #fff;
-        padding: 10px 12px;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        margin-bottom: 20px;
-        box-shadow: var(--shadow);
+      /* Header Hero */
+      .hero {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        color: white;
+        text-align: center;
+        padding: 80px 20px;
+        border-bottom: 4px solid var(--primary-dark);
       }
-      .docs-toc a {
-        padding: 4px 10px;
+      .hero-icon {
+        font-size: 60px;
+        margin-bottom: 16px;
+        display: inline-block;
+      }
+      .hero h1 {
+        font-size: 42px;
+        margin-bottom: 12px;
+        font-weight: 800;
+      }
+      .hero p {
+        font-size: 18px;
+        color: #bfdbfe;
+        max-width: 700px;
+        margin: 0 auto 30px;
+      }
+
+      .badges {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+      .badge {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      /* Container chính */
+      .container {
+        max-width: 1000px;
+        margin: -40px auto 60px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Mục lục (Table of Contents) */
+      .toc {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
+      .toc a {
+        background: #f1f5f9;
+        padding: 6px 12px;
         border-radius: 6px;
         font-size: 13px;
         color: var(--text);
-        background: #f3f4f6;
+        font-weight: 500;
       }
-      .docs-toc a:hover {
+      .toc a:hover {
         background: var(--primary);
         color: #fff;
+        text-decoration: none;
       }
 
-      .docs-section {
+      /* Sections */
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 24px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        scroll-margin-top: 20px;
+      }
+      .card h2 {
+        font-size: 22px;
+        color: var(--text);
         margin-bottom: 20px;
-        scroll-margin-top: 80px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f1f5f9;
       }
-      .docs-section h2 {
-        margin-top: 0;
-      }
-      .docs-section h3 {
-        font-size: 15px;
-        margin: 18px 0 8px;
+      .card h3 {
+        font-size: 17px;
         color: var(--primary);
+        margin: 24px 0 12px;
       }
-      .docs-section ul {
-        padding-left: 20px;
+      .card p {
+        margin-bottom: 14px;
       }
-      .docs-section li {
-        margin-bottom: 6px;
+      .card ul {
+        padding-left: 24px;
+        margin-bottom: 16px;
+      }
+      .card li {
+        margin-bottom: 8px;
       }
 
-      .docs-table {
+      /* Grid cho phần tính năng */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      /* Bảng */
+      table {
         width: 100%;
         border-collapse: collapse;
-        margin: 10px 0;
-        font-size: 13px;
+        margin: 16px 0;
+        font-size: 14px;
       }
-      .docs-table th,
-      .docs-table td {
+      th,
+      td {
         border: 1px solid var(--border);
-        padding: 8px 10px;
+        padding: 10px 14px;
         text-align: left;
         vertical-align: top;
       }
-      .docs-table th {
-        background: #f9fafb;
+      th {
+        background: #f8fafc;
         font-weight: 600;
       }
-      .docs-table code {
-        font-size: 12px;
-        background: #f3f4f6;
+      code {
+        background: #f1f5f9;
         padding: 2px 6px;
         border-radius: 4px;
+        font-family: monospace;
+        font-size: 13px;
+        color: #b91c1c;
       }
 
-      .docs-code {
-        background: #111827;
-        color: #e5e7eb;
-        padding: 14px 16px;
+      /* Code block */
+      .code-block {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 16px;
         border-radius: 8px;
-        font-family: "Consolas", "Courier New", monospace;
+        font-family: monospace;
         font-size: 13px;
         overflow-x: auto;
         white-space: pre;
-        line-height: 1.55;
-        margin: 10px 0;
+        margin: 12px 0;
+        line-height: 1.5;
       }
-      .docs-code .comment {
+      .code-block span {
         color: #94a3b8;
-        font-style: italic;
       }
 
-      .docs-step {
-        display: flex;
-        gap: 12px;
-        padding: 12px;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        margin-bottom: 10px;
-        background: #fff;
+      /* Note boxes */
+      .note {
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        margin: 16px 0;
+        border-left: 4px solid;
       }
-      .docs-step-num {
-        flex-shrink: 0;
+      .note-info {
+        background: #eff6ff;
+        border-color: var(--primary);
+      }
+      .note-danger {
+        background: #fef2f2;
+        border-color: var(--danger);
+      }
+
+      /* Steps */
+      .step {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .step-num {
         width: 32px;
         height: 32px;
         border-radius: 50%;
@@ -400,836 +253,377 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 700;
+        font-weight: bold;
+        flex-shrink: 0;
       }
-      .docs-step-body {
+      .step-content {
         flex: 1;
-        min-width: 0;
       }
-      .docs-step-title {
+      .step-title {
         font-weight: 600;
         margin-bottom: 4px;
       }
-      .docs-step-desc {
-        font-size: 13px;
-        color: var(--muted);
-        margin-bottom: 6px;
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        border-top: 1px solid var(--border);
+        background: #fff;
       }
 
-      .docs-note {
-        background: #fef3c7;
-        border-left: 4px solid var(--warning);
-        padding: 10px 14px;
-        border-radius: 6px;
-        font-size: 13px;
-        margin: 10px 0;
-      }
-      .docs-note.info {
-        background: #dbeafe;
-        border-left-color: var(--primary);
-      }
-      .docs-note.danger {
-        background: #fee2e2;
-        border-left-color: var(--danger);
-      }
-
-      /* Responsive */
-      @media (max-width: 900px) {
-        .grid-4,
-        .grid-3 {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 720px) {
-        .sidebar {
-          display: none;
-        } /* Ẩn sidebar trên mobile cho gọn */
-        .grid-4,
-        .grid-3,
+      @media (max-width: 768px) {
         .grid-2 {
           grid-template-columns: 1fr;
         }
-        .content {
-          padding: 14px;
+        .hero h1 {
+          font-size: 32px;
         }
-        .topbar {
-          padding: 10px 14px;
-        }
-        .docs-toc {
+        .toc {
           position: static;
-        }
-        .docs-hero {
-          padding: 24px 16px;
-        }
-        .docs-hero h1 {
-          font-size: 22px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="app">
-      <!-- SIDEBAR TĨNH -->
-      <aside class="sidebar">
-        <div class="brand">
-          <span class="brand-icon">🎓</span>
-          <span class="brand-name">English Path</span>
-        </div>
-        <nav class="nav">
-          <a
-            href="https://github.com/ntluan2005dthu-star/english-path-learning"
-            class="nav-item"
-          >
-            <span class="nav-icon">🏠</span> Về trang Github
-          </a>
-          <a href="#" class="nav-item active">
-            <span class="nav-icon">📘</span> Tài liệu dự án
-          </a>
-        </nav>
-        <div class="sidebar-footer">Demo cục bộ · Excel</div>
-      </aside>
+    <!-- HERO SECTION -->
+    <header class="hero">
+      <div class="hero-icon">🎓</div>
+      <h1>English Path</h1>
+      <p>
+        Hệ thống học tiếng Anh giao tiếp & IT English cục bộ dành cho người Việt
+        mới bắt đầu
+      </p>
 
-      <!-- NỘI DUNG CHÍNH -->
-      <div class="main">
-        <header class="topbar">
-          <h1 class="page-title">Tài liệu dự án</h1>
-        </header>
-        <main class="content">
-          <section id="docs" class="docs">
-            <div class="docs-hero">
-              <div class="docs-hero-icon">🎓</div>
-              <h1>English Path</h1>
-              <p class="docs-hero-tag">
-                Hệ thống học tiếng Anh giao tiếp &amp; IT English cho người Việt
-                mới bắt đầu
-              </p>
-              <div class="docs-hero-badges">
-                <span class="badge">Flask 3.0</span>
-                <span class="badge">openpyxl 3.1</span>
-                <span class="badge success">Local-first</span>
-                <span class="badge warning">Excel storage</span>
-                <span class="badge neutral">Single learner</span>
-              </div>
-            </div>
-
-            <nav class="docs-toc">
-              <a href="#overview">Tổng quan</a>
-              <a href="#features">Tính năng</a>
-              <a href="#stack">Công nghệ</a>
-              <a href="#install">Cài đặt &amp; chạy</a>
-              <a href="#structure">Cấu trúc</a>
-              <a href="#data">Dữ liệu Excel</a>
-              <a href="#api">API</a>
-              <a href="#safety">An toàn dữ liệu</a>
-              <a href="#limits">Giới hạn</a>
-              <a href="#sources">Nguồn tham khảo</a>
-              <a href="#tests">Kiểm thử</a>
-            </nav>
-
-            <!-- OVERVIEW -->
-            <section id="overview" class="docs-section card">
-              <h2 class="section-title">📌 Tổng quan</h2>
-              <p>
-                English Path là một <b>ứng dụng web chạy cục bộ</b> trên máy cá
-                nhân, dùng <b>Flask</b> làm backend và lưu toàn bộ dữ liệu học
-                tập vào
-                <b>một file Excel duy nhất</b>
-                (<code>data/english_learning_data.xlsx</code>). Hệ thống được
-                thiết kế cho <b>một người học duy nhất</b> — người Việt mới bắt
-                đầu — hướng tới hai mục tiêu song song:
-              </p>
-              <ul>
-                <li>
-                  <b>Tiếng Anh giao tiếp từ con số 0</b>: chào hỏi, tự giới
-                  thiệu, số đếm, gia đình, trường học, sở thích, hội thoại tình
-                  huống, nghe, nói, đọc hiểu.
-                </li>
-                <li>
-                  <b>Tiếng Anh chuyên ngành CNTT</b>: máy tính, hệ điều hành,
-                  mạng, lập trình, frontend, backend, cơ sở dữ liệu, kiểm thử,
-                  mô tả dự án.
-                </li>
-              </ul>
-              <p>
-                Hệ thống tích hợp sẵn <b>bộ từ vựng mẫu</b> và tính năng
-                <b>tự động tải 5000 từ vựng chuẩn Oxford</b> trực tiếp từ
-                internet để mở rộng kho từ. Lộ trình gợi ý <b>6 tháng</b> chia
-                thành 24 bài, có thể điều chỉnh tốc độ. Hệ thống
-                <b>không cam kết</b> người học đạt mức lưu loát sau 6 tháng —
-                đây chỉ là khung tham khảo.
-              </p>
-              <div class="docs-note info">
-                Đối tượng phù hợp: người Việt mới học tiếng Anh, sinh viên CNTT
-                hoặc người chuyển ngành muốn chuẩn bị vốn tiếng Anh cho công
-                việc lập trình. Không dành cho lớp học đông người hoặc môi
-                trường nhiều người dùng cùng lúc.
-              </div>
-            </section>
-
-            <!-- FEATURES -->
-            <section id="features" class="docs-section card">
-              <h2 class="section-title">✨ Tính năng chính</h2>
-              <div class="grid grid-2">
-                <div>
-                  <h3>🗺️ Lộ trình 6 tháng</h3>
-                  <ul>
-                    <li>24 bài học chia đều 6 tháng.</li>
-                    <li>
-                      Mỗi bài gắn 1 kỹ năng: nghe, nói, đọc, ngữ pháp, từ vựng,
-                      IT.
-                    </li>
-                    <li>
-                      Bài tiếp theo tự động mở khoá khi hoàn thành bài trước.
-                    </li>
-                  </ul>
-                  <h3>📚 Thư viện từ vựng</h3>
-                  <ul>
-                    <li>
-                      <b>Tích hợp sẵn 5000 từ Oxford:</b> Nhấn nút "Nhập 5000 từ
-                      Oxford" để tự động tải và thêm vào Excel.
-                    </li>
-                    <li>
-                      Mỗi từ lưu: IPA, từ loại, nghĩa Việt, định nghĩa Anh,
-                      collocation, câu ví dụ, chủ đề, CEFR, độ khó, nguồn tham
-                      khảo.
-                    </li>
-                    <li>
-                      Tìm kiếm Anh ↔ Việt, lọc theo chủ đề / độ khó / trạng
-                      thái, đánh dấu yêu thích, đánh dấu đã thành thạo.
-                    </li>
-                    <li>Phát âm bằng Web Speech API của trình duyệt.</li>
-                  </ul>
-                  <h3>📅 Luyện tập hằng ngày (40 phút)</h3>
-                  <ul>
-                    <li>
-                      5 phần: ôn từ đến hạn, học từ mới, nghe &amp; phát âm, đọc
-                      hội thoại, kiểm tra 5 câu.
-                    </li>
-                    <li>
-                      Trạng thái từng phần được lưu vào
-                      <code>StudyProgress</code> theo ngày.
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3>📝 Trung tâm kiểm tra</h3>
-                  <ul>
-                    <li>Sinh đề theo chủ đề, chọn 5–20 câu.</li>
-                    <li>Các dạng: Anh→Việt, Việt→Anh, điền khuyết, nghe.</li>
-                    <li>Chỉ hiện đáp án + giải thích <b>sau khi nộp</b>.</li>
-                    <li>Kết quả lưu vào <code>TestResults</code>.</li>
-                  </ul>
-                  <h3>❌ Sổ lỗi sai</h3>
-                  <ul>
-                    <li>
-                      Lưu mọi câu sai: câu hỏi, đáp án bạn chọn, đáp án đúng, số
-                      lần sai, giải thích.
-                    </li>
-                    <li>Đánh dấu "đã khắc phục" khi hiểu.</li>
-                    <li>Có thể lọc xem lỗi chưa/đã xử lý.</li>
-                  </ul>
-                  <h3>🎧 Luyện nghe &amp; 🎤 Luyện nói</h3>
-                  <ul>
-                    <li>Nghe từ và chọn đáp án đúng (dùng Web Speech API).</li>
-                    <li>
-                      Luyện nói: phát mẫu câu, tự đọc theo, tự đánh giá (không
-                      chấm điểm phát âm).
-                    </li>
-                  </ul>
-                  <h3>📊 Thống kê &amp; 🎯 Mục tiêu</h3>
-                  <ul>
-                    <li>
-                      Chuỗi ngày học, phút học, điểm trung bình, từ vựng theo
-                      chủ đề, điểm yếu.
-                    </li>
-                    <li>
-                      Mọi con số đều tính từ dữ liệu thật trong Excel — không có
-                      số liệu giả.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            <!-- STACK -->
-            <section id="stack" class="docs-section card">
-              <h2 class="section-title">🛠 Công nghệ sử dụng</h2>
-              <table class="docs-table">
-                <thead>
-                  <tr>
-                    <th>Thành phần</th>
-                    <th>Phiên bản</th>
-                    <th>Vai trò</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Python</td>
-                    <td>3.10+ (khuyến nghị 3.11+)</td>
-                    <td>Runtime cho backend</td>
-                  </tr>
-                  <tr>
-                    <td>Flask</td>
-                    <td>3.0.3</td>
-                    <td>Web framework, routing, API JSON</td>
-                  </tr>
-                  <tr>
-                    <td>openpyxl</td>
-                    <td>3.1.5</td>
-                    <td>Đọc/ghi file Excel <code>.xlsx</code></td>
-                  </tr>
-                  <tr>
-                    <td>HTML5 / CSS3 / JS (ES2020)</td>
-                    <td>—</td>
-                    <td>Giao diện, không framework</td>
-                  </tr>
-                  <tr>
-                    <td>Web Speech API</td>
-                    <td>Trình duyệt cung cấp</td>
-                    <td>Phát âm (không dùng để chấm điểm)</td>
-                  </tr>
-                  <tr>
-                    <td>urllib (Python stdlib)</td>
-                    <td>—</td>
-                    <td>Tải dữ liệu Oxford 5000 từ GitHub</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p class="subtle">
-                Không dùng cơ sở dữ liệu, không dùng ORM, không dùng Node.js.
-                Chạy hoàn toàn trong môi trường Python cục bộ.
-              </p>
-            </section>
-
-            <!-- INSTALL -->
-            <section id="install" class="docs-section card">
-              <h2 class="section-title">🚀 Cài đặt và chạy trên Windows</h2>
-              <p class="subtle">
-                Các bước dưới đây dùng <b>PowerShell</b> (không phải CMD). Mở
-                PowerShell tại thư mục dự án.
-              </p>
-
-              <div class="docs-step">
-                <div class="docs-step-num">1</div>
-                <div class="docs-step-body">
-                  <div class="docs-step-title">
-                    Cài Python 3.10+ (nếu chưa có)
-                  </div>
-                  <div class="docs-step-desc">
-                    Tải từ
-                    <a
-                      href="https://www.python.org/downloads/"
-                      target="_blank"
-                      rel="noopener"
-                      >python.org/downloads</a
-                    >
-                    và <b>tick chọn "Add python.exe to PATH"</b> khi cài.
-                  </div>
-                  <div class="docs-code">
-                    python --version
-                    <span class="comment"
-                      ># Kết quả mong đợi: Python 3.11.x trở lên</span
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <div class="docs-step">
-                <div class="docs-step-num">2</div>
-                <div class="docs-step-body">
-                  <div class="docs-step-title">Tạo môi trường ảo (venv)</div>
-                  <div class="docs-step-desc">
-                    Cô lập thư viện của dự án, tránh xung đột với các dự án
-                    Python khác.
-                  </div>
-                  <div class="docs-code">
-                    python -m venv venv .\venv\Scripts\Activate.ps1
-                  </div>
-                  <div class="docs-note info">
-                    Khi kích hoạt thành công, prompt sẽ có tiền tố
-                    <code>(venv)</code>. Nếu bị lỗi
-                    <code>Activate.ps1 cannot be loaded</code>, chạy một lần:
-                    <code
-                      >Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code
-                    >.
-                  </div>
-                </div>
-              </div>
-
-              <div class="docs-step">
-                <div class="docs-step-num">3</div>
-                <div class="docs-step-body">
-                  <div class="docs-step-title">Cài thư viện</div>
-                  <div class="docs-step-desc">
-                    Cài Flask và openpyxl theo đúng phiên bản trong
-                    <code>requirements.txt</code>.
-                  </div>
-                  <div class="docs-code">pip install -r requirements.txt</div>
-                </div>
-              </div>
-
-              <div class="docs-step">
-                <div class="docs-step-num">4</div>
-                <div class="docs-step-body">
-                  <div class="docs-step-title">Chạy ứng dụng</div>
-                  <div class="docs-step-desc">
-                    Flask sẽ tự tạo file Excel và khởi động server tại cổng
-                    5000.
-                  </div>
-                  <div class="docs-code">python app.py</div>
-                  <div class="docs-note info">
-                    Lần chạy đầu tiên sẽ tạo
-                    <code>data/english_learning_data.xlsx</code> (10 sheet với
-                    dữ liệu mẫu).
-                  </div>
-                </div>
-              </div>
-
-              <div class="docs-step">
-                <div class="docs-step-num">5</div>
-                <div class="docs-step-body">
-                  <div class="docs-step-title">Mở trình duyệt</div>
-                  <div class="docs-step-desc">
-                    Truy cập địa chỉ sau (dùng Chrome / Edge / Cốc Cốc để Web
-                    Speech API hoạt động):
-                  </div>
-                  <div class="docs-code">http://127.0.0.1:5000</div>
-                </div>
-              </div>
-
-              <h3>Khắc phục sự cố thường gặp</h3>
-              <table class="docs-table">
-                <thead>
-                  <tr>
-                    <th>Lỗi</th>
-                    <th>Nguyên nhân</th>
-                    <th>Cách xử lý</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>python not found</code></td>
-                    <td>Python chưa cài hoặc chưa vào PATH</td>
-                    <td>Cài lại, tick "Add Python to PATH"</td>
-                  </tr>
-                  <tr>
-                    <td><code>Activate.ps1 cannot be loaded</code></td>
-                    <td>Execution policy chặn script</td>
-                    <td>
-                      <code
-                        >Set-ExecutionPolicy -Scope CurrentUser
-                        RemoteSigned</code
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>TemplateNotFound</code></td>
-                    <td>Chạy app.py từ sai thư mục</td>
-                    <td>
-                      <code>cd</code> vào thư mục gốc có
-                      <code>templates/</code> trước khi chạy
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>Port 5000 đang bận</code></td>
-                    <td>Cổng đã bị dùng</td>
-                    <td>
-                      Đổi <code>port=5000</code> trong <code>app.py</code> sang
-                      5001
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>PermissionError</code> khi ghi Excel</td>
-                    <td>File Excel đang mở trong Microsoft Excel</td>
-                    <td>Đóng file Excel rồi tải lại trang</td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-
-            <!-- STRUCTURE -->
-            <section id="structure" class="docs-section card">
-              <h2 class="section-title">📂 Cấu trúc thư mục</h2>
-              <div class="docs-code">
-                english_path/ ├── app.py
-                <span class="comment"># Backend Flask, điều hướng, API</span>
-                ├── requirements.txt
-                <span class="comment"># Flask==3.0.3, openpyxl==3.1.5</span> ├──
-                README.md ├── data/ │ ├── english_learning_data.xlsx
-                <span class="comment"># Tự sinh khi chạy lần đầu</span> │ └──
-                backups/
-                <span class="comment"># Sao lưu tự động mỗi lần ghi</span> ├──
-                modules/ │ ├── __init__.py │ ├── excel_store.py
-                <span class="comment"
-                  ># Đọc/ghi Excel an toàn, atomic save</span
-                >
-                │ ├── online_loader.py
-                <span class="comment"># Tải 5000 từ Oxford từ internet</span> │
-                ├── quiz_engine.py
-                <span class="comment"># Sinh câu hỏi &amp; chấm điểm</span> │
-                ├── seed_data.py
-                <span class="comment"># Dữ liệu mẫu ban đầu (DEMO)</span> │ └──
-                srs.py
-                <span class="comment"
-                  ># Spaced Repetition (1, 3, 7, 14, 30 ngày)</span
-                >
-                ├── templates/ │ ├── base.html
-                <span class="comment"># Layout chung + sidebar</span> │ ├──
-                index.html <span class="comment"># Trang chủ</span> │ ├──
-                roadmap.html │ ├── ... (các file html khác) │ └── docs.html └──
-                static/ ├── css/style.css └── js/ ... (các file js khác)
-              </div>
-            </section>
-
-            <!-- DATA -->
-            <section id="data" class="docs-section card">
-              <h2 class="section-title">📊 Thiết kế dữ liệu Excel</h2>
-              <p>
-                Toàn bộ trạng thái ứng dụng nằm trong một workbook
-                <code>english_learning_data.xlsx</code>, gồm <b>10 sheet</b> có
-                schema cố định:
-              </p>
-              <table class="docs-table">
-                <thead>
-                  <tr>
-                    <th>Sheet</th>
-                    <th>Mục đích</th>
-                    <th>Cột chính</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>Vocabulary</code></td>
-                    <td>
-                      Kho từ vựng (có thể lên tới 5000+ dòng nếu nhập Oxford)
-                    </td>
-                    <td>
-                      id, word, ipa, pos, vi_meaning, en_definition, example_en,
-                      example_vi, topic, cefr, difficulty, source_name,
-                      source_url, status, next_review, interval_days, ease
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>Phrases</code></td>
-                    <td>Câu hội thoại mẫu</td>
-                    <td>
-                      id, phrase_en, phrase_vi, topic, source_name, source_url
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>Grammar</code></td>
-                    <td>Chủ điểm ngữ pháp</td>
-                    <td>
-                      id, title_vi, title_en, content_vi, example_en,
-                      example_vi, level, source_url
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>Lessons</code></td>
-                    <td>Bài học trong lộ trình</td>
-                    <td>
-                      id, month, title_vi, title_en, skill, description_vi,
-                      estimated_minutes, unlock_order, vocab_topics
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>Exercises</code></td>
-                    <td>Bài tập gắn với lesson</td>
-                    <td>
-                      id, lesson_id, type, question, options, answer,
-                      explanation_vi, vocab_id
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>TestResults</code></td>
-                    <td>Lịch sử làm bài</td>
-                    <td>
-                      id, date, quiz_type, lesson_id, total, correct, score,
-                      duration_sec, details
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>StudyProgress</code></td>
-                    <td>Tiến độ từng ngày</td>
-                    <td>
-                      id, date, tasks_done, new_words, reviewed_words,
-                      quiz_score, minutes
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>Mistakes</code></td>
-                    <td>Sổ lỗi sai</td>
-                    <td>
-                      id, qid, question, user_answer, correct_answer,
-                      explanation_vi, knowledge_point, wrong_count, resolved
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><code>Sources</code></td>
-                    <td>Danh sách nguồn</td>
-                    <td>id, name, url, type, verified</td>
-                  </tr>
-                  <tr>
-                    <td><code>Settings</code></td>
-                    <td>Cấu hình hệ thống</td>
-                    <td>id, key, value, note</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="docs-note danger">
-                <b>Excel không phải là cơ sở dữ liệu.</b> Khi nhập 5000 từ
-                Oxford, file Excel sẽ phình to (khoảng 2-4 MB) và tốc độ đọc/ghi
-                sẽ chậm hơn so với ban đầu. Nó phù hợp cho học cá nhân, không
-                phù hợp cho ghi đồng thời nhiều người.
-              </div>
-            </section>
-
-            <!-- API -->
-            <section id="api" class="docs-section card">
-              <h2 class="section-title">🔌 API endpoints</h2>
-              <p class="subtle">
-                Tất cả dữ liệu đi qua backend; trình duyệt không đọc/ghi trực
-                tiếp file Excel.
-              </p>
-              <table class="docs-table">
-                <thead>
-                  <tr>
-                    <th>Method</th>
-                    <th>Route</th>
-                    <th>Chức năng</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>GET</td>
-                    <td><code>/api/dashboard</code></td>
-                    <td>Số liệu tổng hợp cho trang chủ</td>
-                  </tr>
-                  <tr>
-                    <td>GET</td>
-                    <td><code>/api/roadmap</code></td>
-                    <td>Danh sách bài học theo tháng + trạng thái mở khoá</td>
-                  </tr>
-                  <tr>
-                    <td>GET</td>
-                    <td><code>/api/lesson/&lt;id&gt;</code></td>
-                    <td>Chi tiết 1 bài học</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/lesson/&lt;id&gt;/complete</code></td>
-                    <td>Đánh dấu hoàn thành bài học</td>
-                  </tr>
-                  <tr>
-                    <td>GET</td>
-                    <td><code>/api/vocabulary</code></td>
-                    <td>Tìm kiếm, lọc, phân trang từ vựng</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/vocabulary/import-oxford</code></td>
-                    <td>Tự động tải và import 5000 từ Oxford</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/vocabulary/&lt;id&gt;/favorite</code></td>
-                    <td>Bật/tắt yêu thích</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/vocabulary/&lt;id&gt;/status</code></td>
-                    <td>
-                      Đổi trạng thái (new / learning / reviewing / mastered)
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/vocabulary/&lt;id&gt;/review</code></td>
-                    <td>Cập nhật SRS theo kết quả đúng/sai</td>
-                  </tr>
-                  <tr>
-                    <td>GET</td>
-                    <td><code>/api/daily</code></td>
-                    <td>Nhiệm vụ hôm nay + tiến độ</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/daily/complete</code></td>
-                    <td>Đánh dấu 1 nhiệm vụ đã xong</td>
-                  </tr>
-                  <tr>
-                    <td>GET</td>
-                    <td>
-                      <code>/api/grammar</code> · <code>/api/phrases</code> ·
-                      <code>/api/it-english</code>
-                    </td>
-                    <td>Dữ liệu cho các trang tương ứng</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/quiz/generate</code></td>
-                    <td>Sinh đề theo chủ đề / lesson / số câu</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/quiz/submit</code></td>
-                    <td>Chấm điểm, lưu kết quả, ghi lỗi sai, cập nhật SRS</td>
-                  </tr>
-                  <tr>
-                    <td>GET</td>
-                    <td><code>/api/mistakes?resolved=0|1</code></td>
-                    <td>Danh sách lỗi sai</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td><code>/api/mistakes/&lt;id&gt;/resolve</code></td>
-                    <td>Đánh dấu đã khắc phục</td>
-                  </tr>
-                  <tr>
-                    <td>GET</td>
-                    <td><code>/api/stats</code></td>
-                    <td>Toàn bộ số liệu thống kê</td>
-                  </tr>
-                  <tr>
-                    <td>GET/POST</td>
-                    <td><code>/api/settings</code></td>
-                    <td>Đọc/ghi cấu hình</td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-
-            <!-- SAFETY & LIMITS -->
-            <section id="safety" class="docs-section card">
-              <h2 class="section-title">🛡 An toàn dữ liệu &amp; Giới hạn</h2>
-              <ul>
-                <li>
-                  <b>Sao lưu tự động:</b> Mỗi lần ghi, file cũ được copy sang
-                  <code>data/backups/</code>.
-                </li>
-                <li>
-                  <b>Atomic save:</b> Ghi file tạm rồi thay thế, tránh hỏng file
-                  nếu mất điện.
-                </li>
-                <li>
-                  <b>Khoá ghi:</b> Dùng <code>threading.Lock()</code> tránh xung
-                  đột.
-                </li>
-                <li>
-                  <b>Giới hạn:</b> Chỉ 1 người dùng, chưa hỗ trợ nhận dạng giọng
-                  nói, chưa có migration sang SQLite.
-                </li>
-              </ul>
-            </section>
-
-            <!-- SOURCES -->
-            <section id="sources" class="docs-section card">
-              <h2 class="section-title">📚 Nguồn tham khảo</h2>
-              <ul>
-                <li>
-                  <a
-                    href="https://learnenglish.britishcouncil.org/"
-                    target="_blank"
-                    rel="noopener"
-                    >British Council LearnEnglish</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.oxfordlearnersdictionaries.com/"
-                    target="_blank"
-                    rel="noopener"
-                    >Oxford Learner's Dictionaries</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://dictionary.cambridge.org/"
-                    target="_blank"
-                    rel="noopener"
-                    >Cambridge Dictionary</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://developer.mozilla.org/en-US/docs/Glossary"
-                    target="_blank"
-                    rel="noopener"
-                    >MDN Web Docs Glossary</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://learn.microsoft.com/"
-                    target="_blank"
-                    rel="noopener"
-                    >Microsoft Learn</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/winterdl/oxford-5000-vocabulary-audio-definition"
-                    target="_blank"
-                    rel="noopener"
-                    >Kho dữ liệu mở Oxford 5000</a
-                  >
-                </li>
-              </ul>
-            </section>
-
-            <!-- TESTS -->
-            <section id="tests" class="docs-section card">
-              <h2 class="section-title">✅ Trạng thái kiểm thử</h2>
-              <table class="docs-table">
-                <thead>
-                  <tr>
-                    <th>Hành vi</th>
-                    <th>Kết quả</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Lần đầu chạy tự sinh file Excel 10 sheet</td>
-                    <td><span class="badge success">Pass</span></td>
-                  </tr>
-                  <tr>
-                    <td>Tự động nhập 5000 từ Oxford từ internet</td>
-                    <td><span class="badge success">Pass</span></td>
-                  </tr>
-                  <tr>
-                    <td>Tìm kiếm / lọc / phân trang từ vựng</td>
-                    <td><span class="badge success">Pass</span></td>
-                  </tr>
-                  <tr>
-                    <td>Sinh đề, chấm điểm, lưu lỗi sai</td>
-                    <td><span class="badge success">Pass</span></td>
-                  </tr>
-                  <tr>
-                    <td>SRS cập nhật lịch ôn tập 1/3/7/14/30 ngày</td>
-                    <td><span class="badge success">Pass</span></td>
-                  </tr>
-                  <tr>
-                    <td>Chấm điểm phát âm / Migration SQLite</td>
-                    <td><span class="badge danger">Chưa có</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-
-            <div class="card" style="text-align: center">
-              <p class="subtle">
-                English Path — Dự án học tập cục bộ · Dữ liệu lưu trong Excel ·
-                Không gửi dữ liệu lên cloud.
-              </p>
-              <a
-                class="btn ghost"
-                href="https://github.com/ntluan2005dthu-star/english-path-learning"
-                >← Về trang Github</a
-              >
-            </div>
-          </section>
-        </main>
+      <div class="badges">
+        <span class="badge">Flask 3.0</span>
+        <span class="badge">openpyxl 3.1</span>
+        <span class="badge">Local-first</span>
+        <span class="badge">Excel Storage</span>
       </div>
+
+      <!-- NÚT DẪN VỀ GITHUB -->
+      <a
+        href="https://github.com/ntluan2005dthu-star/english-path-learning"
+        target="_blank"
+        rel="noopener"
+        class="btn-github"
+      >
+        <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
+          <path
+            fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
+        Xem Mã Nguồn Trên GitHub
+      </a>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <div class="container">
+      <!-- MỤC LỤC -->
+      <nav class="toc">
+        <a href="#overview">Tổng quan</a>
+        <a href="#features">Tính năng</a>
+        <a href="#install">Cài đặt & Chạy</a>
+        <a href="#structure">Cấu trúc</a>
+        <a href="#data">Dữ liệu Excel</a>
+        <a href="#api">API Endpoints</a>
+        <a href="#safety">An toàn & Giới hạn</a>
+      </nav>
+
+      <!-- TỔNG QUAN -->
+      <section id="overview" class="card">
+        <h2>📌 Tổng quan</h2>
+        <p>
+          English Path là một <b>ứng dụng web chạy cục bộ</b> trên máy cá nhân,
+          dùng <b>Flask</b> làm backend và lưu toàn bộ dữ liệu học tập vào
+          <b>một file Excel duy nhất</b>
+          (<code>data/english_learning_data.xlsx</code>). Hệ thống được thiết kế
+          cho <b>một người học duy nhất</b> — người Việt mới bắt đầu — hướng tới
+          hai mục tiêu song song:
+        </p>
+        <ul>
+          <li>
+            <b>Tiếng Anh giao tiếp từ con số 0</b>: chào hỏi, tự giới thiệu, số
+            đếm, gia đình, trường học, sở thích, hội thoại tình huống, nghe,
+            nói, đọc hiểu.
+          </li>
+          <li>
+            <b>Tiếng Anh chuyên ngành CNTT</b>: máy tính, hệ điều hành, mạng,
+            lập trình, frontend, backend, cơ sở dữ liệu, kiểm thử, mô tả dự án.
+          </li>
+        </ul>
+        <p>
+          Hệ thống tích hợp sẵn <b>bộ từ vựng mẫu</b> và tính năng
+          <b>tự động tải 5000 từ vựng chuẩn Oxford</b> trực tiếp từ internet để
+          mở rộng kho từ. Lộ trình gợi ý <b>6 tháng</b> chia thành 24 bài, có
+          thể điều chỉnh tốc độ.
+        </p>
+        <div class="note note-info">
+          Đối tượng phù hợp: người Việt mới học tiếng Anh, sinh viên CNTT hoặc
+          người chuyển ngành muốn chuẩn bị vốn tiếng Anh cho công việc lập
+          trình. Không dành cho lớp học đông người hoặc môi trường nhiều người
+          dùng cùng lúc.
+        </div>
+      </section>
+
+      <!-- TÍNH NĂNG -->
+      <section id="features" class="card">
+        <h2>✨ Tính năng chính</h2>
+        <div class="grid-2">
+          <div>
+            <h3>🗺️ Lộ trình 6 tháng</h3>
+            <ul>
+              <li>24 bài học chia đều 6 tháng.</li>
+              <li>
+                Mỗi bài gắn 1 kỹ năng: nghe, nói, đọc, ngữ pháp, từ vựng, IT.
+              </li>
+              <li>Bài tiếp theo tự động mở khoá khi hoàn thành bài trước.</li>
+            </ul>
+            <h3>📚 Thư viện từ vựng</h3>
+            <ul>
+              <li>
+                <b>Tích hợp 5000 từ Oxford:</b> Nhấn nút trên web để tự động tải
+                và thêm vào Excel.
+              </li>
+              <li>
+                Lưu trữ IPA, từ loại, nghĩa Việt, định nghĩa Anh, câu ví dụ,
+                CEFR, độ khó, nguồn.
+              </li>
+              <li>Tìm kiếm, lọc, đánh dấu yêu thích, cập nhật trạng thái.</li>
+              <li>Phát âm bằng Web Speech API.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>📝 Trung tâm kiểm tra</h3>
+            <ul>
+              <li>Sinh đề theo chủ đề (5–20 câu).</li>
+              <li>Các dạng: Anh→Việt, điền khuyết, nghe.</li>
+              <li>
+                Chỉ hiện đáp án sau khi nộp. Kết quả lưu vào
+                <code>TestResults</code>.
+              </li>
+            </ul>
+            <h3>❌ Sổ lỗi sai & 📊 Thống kê</h3>
+            <ul>
+              <li>
+                Lưu lại câu sai, số lần sai, cho phép đánh dấu "đã khắc phục".
+              </li>
+              <li>
+                Thống kê chuỗi ngày học, phút học, điểm trung bình dựa trên dữ
+                liệu thật.
+              </li>
+              <li>Thuật toán ôn tập ngắt quãng (SRS) 1/3/7/14/30 ngày.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CÀI ĐẶT -->
+      <section id="install" class="card">
+        <h2>🚀 Cài đặt và chạy trên Windows</h2>
+        <p style="color: var(--muted); margin-bottom: 20px">
+          Mở PowerShell tại thư mục dự án và chạy lần lượt các bước sau:
+        </p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Tạo môi trường ảo</div>
+            <div class="code-block">
+              python -m venv venv .\venv\Scripts\Activate.ps1
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Cài thư viện</div>
+            <div class="code-block">pip install -r requirements.txt</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Chạy ứng dụng</div>
+            <div class="code-block">python app.py</div>
+            <p style="margin-top: 8px">
+              Mở trình duyệt và truy cập:
+              <a href="http://127.0.0.1:5000" target="_blank"
+                >http://127.0.0.1:5000</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CẤU TRÚC -->
+      <section id="structure" class="card">
+        <h2>📂 Cấu trúc thư mục</h2>
+        <div class="code-block">
+          english_path/ ├── app.py
+          <span># Backend Flask, điều hướng, API</span> ├── requirements.txt
+          <span># Flask==3.0.3, openpyxl==3.1.5</span> ├── data/ │ ├──
+          english_learning_data.xlsx <span># Tự sinh khi chạy lần đầu</span> │
+          └── backups/ <span># Sao lưu tự động mỗi lần ghi</span> ├── modules/ │
+          ├── excel_store.py <span># Đọc/ghi Excel an toàn</span> │ ├──
+          online_loader.py <span># Tải 5000 từ Oxford</span> │ ├──
+          quiz_engine.py <span># Sinh câu hỏi & chấm điểm</span> │ ├──
+          seed_data.py <span># Dữ liệu mẫu ban đầu</span> │ └── srs.py
+          <span># Thuật toán lặp lại ngắt quãng</span> ├── templates/
+          <span># Các file HTML giao diện</span> └── static/
+          <span># CSS và JS</span>
+        </div>
+      </section>
+
+      <!-- DỮ LIỆU -->
+      <section id="data" class="card">
+        <h2>📊 Thiết kế dữ liệu Excel</h2>
+        <p>
+          Toàn bộ trạng thái ứng dụng nằm trong một workbook
+          <code>english_learning_data.xlsx</code>, gồm <b>10 sheet</b> có schema
+          cố định:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Sheet</th>
+              <th>Mục đích</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Vocabulary</code></td>
+              <td>Kho từ vựng (có thể lên tới 5000+ dòng nếu nhập Oxford)</td>
+            </tr>
+            <tr>
+              <td><code>Phrases</code></td>
+              <td>Câu hội thoại mẫu</td>
+            </tr>
+            <tr>
+              <td><code>Grammar</code></td>
+              <td>Chủ điểm ngữ pháp</td>
+            </tr>
+            <tr>
+              <td><code>Lessons</code></td>
+              <td>Bài học trong lộ trình</td>
+            </tr>
+            <tr>
+              <td><code>Exercises</code></td>
+              <td>Bài tập gắn với lesson</td>
+            </tr>
+            <tr>
+              <td><code>TestResults</code></td>
+              <td>Lịch sử làm bài</td>
+            </tr>
+            <tr>
+              <td><code>StudyProgress</code></td>
+              <td>Tiến độ từng ngày</td>
+            </tr>
+            <tr>
+              <td><code>Mistakes</code></td>
+              <td>Sổ lỗi sai</td>
+            </tr>
+            <tr>
+              <td><code>Sources</code></td>
+              <td>Danh sách nguồn tham khảo</td>
+            </tr>
+            <tr>
+              <td><code>Settings</code></td>
+              <td>Cấu hình hệ thống</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note note-danger">
+          <b>Lưu ý:</b> Excel không phải là cơ sở dữ liệu. Khi nhập 5000 từ
+          Oxford, file Excel sẽ phình to và tốc độ đọc/ghi sẽ chậm hơn. Nó phù
+          hợp cho học cá nhân, không phù hợp cho nhiều người dùng cùng lúc.
+        </div>
+      </section>
+
+      <!-- API -->
+      <section id="api" class="card">
+        <h2>🔌 API endpoints</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Route</th>
+              <th>Chức năng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GET</td>
+              <td><code>/api/dashboard</code></td>
+              <td>Số liệu tổng hợp cho trang chủ</td>
+            </tr>
+            <tr>
+              <td>GET</td>
+              <td><code>/api/vocabulary</code></td>
+              <td>Tìm kiếm, lọc, phân trang từ vựng</td>
+            </tr>
+            <tr>
+              <td>POST</td>
+              <td><code>/api/vocabulary/import-oxford</code></td>
+              <td>Tự động tải và import 5000 từ Oxford</td>
+            </tr>
+            <tr>
+              <td>POST</td>
+              <td><code>/api/quiz/submit</code></td>
+              <td>Chấm điểm, lưu kết quả, ghi lỗi sai, cập nhật SRS</td>
+            </tr>
+            <tr>
+              <td>GET</td>
+              <td><code>/api/stats</code></td>
+              <td>Toàn bộ số liệu thống kê</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- AN TOÀN & GIỚI HẠN -->
+      <section id="safety" class="card">
+        <h2>🛡 An toàn dữ liệu & Giới hạn</h2>
+        <ul>
+          <li>
+            <b>Sao lưu tự động:</b> Mỗi lần ghi thành công, file cũ được copy
+            sang <code>data/backups/</code>.
+          </li>
+          <li>
+            <b>Atomic save:</b> Ghi file tạm rồi dùng
+            <code>os.replace()</code> để thay thế, tránh hỏng file nếu mất điện.
+          </li>
+          <li>
+            <b>Khoá ghi:</b> Dùng <code>threading.Lock()</code> tránh xung đột
+            dữ liệu.
+          </li>
+          <li>
+            <b>Giới hạn:</b> Chỉ hỗ trợ 1 người dùng, chưa tích hợp nhận dạng
+            giọng nói chấm điểm phát âm, chưa có tính năng export CSV hay
+            migrate sang SQLite.
+          </li>
+        </ul>
+      </section>
     </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p style="margin-bottom: 20px; font-size: 18px; font-weight: 600">
+        Muốn xem chi tiết mã nguồn hoặc tải về chạy thử?
+      </p>
+      <a
+        href="https://github.com/ntluan2005dthu-star/english-path-learning"
+        target="_blank"
+        rel="noopener"
+        class="btn-github"
+      >
+        Truy cập GitHub Repository
+      </a>
+      <p style="margin-top: 30px; color: var(--muted); font-size: 14px">
+        English Path — Dự án mã nguồn mở dành cho cộng đồng người Việt học CNTT.
+      </p>
+    </footer>
   </body>
 </html>
