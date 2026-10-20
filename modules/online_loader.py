@@ -1,4 +1,3 @@
-# modules/online_loader.py
 import urllib.request
 import urllib.parse
 import json

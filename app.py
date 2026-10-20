@@ -1,6 +1,3 @@
-# ============================================================
-# app.py — English Path backend
-# ============================================================
 import os
 from datetime import date, timedelta
 
@@ -14,7 +11,6 @@ app.json.ensure_ascii = False
 
 store.ensure_workbook()
 
-# ---------- Tiện ích ----------
 def to_int(value, default=0):
     try:
         return int(float(value))
@@ -60,7 +56,6 @@ def compute_streak(date_set):
         d = d - timedelta(days=1)
     return streak
 
-# ---------- Điều hướng ----------
 NAV = [
     ('index', '/', 'Trang chủ', '🏠'),
     ('roadmap', '/roadmap', 'Lộ trình học', '🗺️'),
@@ -119,7 +114,6 @@ def stats(): return render_template('stats.html', page_key='stats', page_title='
 @app.route('/docs')
 def docs(): return render_template('docs.html', page_key='docs', page_title='Tài liệu dự án')
 
-# ---------- Dashboard ----------
 @app.get('/api/dashboard')
 def api_dashboard():
     vocab = store.read_sheet('Vocabulary')
@@ -168,7 +162,6 @@ def api_dashboard():
         'due_words': [{'id': v.get('id'), 'word': v.get('word'), 'vi_meaning': v.get('vi_meaning')} for v in due[:8]],
     })
 
-# ---------- Roadmap ----------
 @app.get('/api/roadmap')
 def api_roadmap():
     lessons = store.read_sheet('Lessons')
@@ -219,7 +212,6 @@ def api_lesson_complete(lesson_id):
         store.update_row('StudyProgress', prog.get('id'), {'minutes': minutes})
     return jsonify({'ok': True, 'completed': done})
 
-# ---------- Vocabulary ----------
 @app.get('/api/vocabulary')
 def api_vocabulary():
     rows = store.read_sheet('Vocabulary')
@@ -312,7 +304,6 @@ def api_vocab_review(vid):
     store.update_row('StudyProgress', prog.get('id'), {'reviewed_words': to_int(prog.get('reviewed_words')) + 1})
     return jsonify({'ok': True, **changes})
 
-# ---------- Daily ----------
 @app.get('/api/daily')
 def api_daily():
     vocab = store.read_sheet('Vocabulary')
@@ -361,7 +352,6 @@ def api_daily_complete():
     store.update_row('StudyProgress', prog.get('id'), changes)
     return jsonify({'ok': True, 'done_tasks': done})
 
-# ---------- Grammar / Phrases / IT ----------
 @app.get('/api/grammar')
 def api_grammar(): return jsonify({'items': store.read_sheet('Grammar')})
 
@@ -382,7 +372,6 @@ def api_it_english():
         if items: result[t] = [{'id': to_int(v.get('id')), 'word': v.get('word'), 'pos': v.get('pos'), 'vi_meaning': v.get('vi_meaning'), 'en_definition': v.get('en_definition'), 'example_en': v.get('example_en'), 'example_vi': v.get('example_vi'), 'source_name': v.get('source_name'), 'source_url': v.get('source_url')} for v in items]
     return jsonify({'topics': result})
 
-# ---------- Quiz ----------
 @app.post('/api/quiz/generate')
 def api_quiz_generate():
     data = request.get_json(silent=True) or {}
@@ -417,7 +406,6 @@ def api_quiz_submit():
 
     return jsonify({'ok': True, 'score': score, 'total': total, 'correct': correct_count, 'results': results})
 
-# ---------- Mistakes ----------
 @app.get('/api/mistakes')
 def api_mistakes():
     show_resolved = request.args.get('resolved') == '1'
@@ -433,7 +421,6 @@ def api_mistake_resolve(mid):
     store.update_row('Mistakes', mid, {'resolved': resolved, 'last_practiced': today_str()})
     return jsonify({'ok': True, 'resolved': resolved})
 
-# ---------- Stats ----------
 @app.get('/api/stats')
 def api_stats():
     vocab = store.read_sheet('Vocabulary')
@@ -466,7 +453,6 @@ def api_stats():
         'unresolved_mistakes': sum(1 for m in mistakes if to_int(m.get('resolved')) == 0),
     })
 
-# ---------- Settings & Errors ----------
 @app.get('/api/settings')
 def api_get_settings(): return jsonify(get_settings())
 
